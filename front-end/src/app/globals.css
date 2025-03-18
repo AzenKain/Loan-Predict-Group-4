@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    * {
+        scrollbar-width: thin;
+        letter-spacing: 1px;
+        font-weight: 400
+    }
+
+    .hover-up {
+        transition: transform 0.5s ease;
+        transform: translateY(0);
+    }
+
+    .hover-up:hover {
+        transform: translateY(-3px) translateX(-1px);
+        filter: drop-shadow(2px 2px 3px #E7E7E7);
+    }
+
+    .luxuriousFont {
+        font-family: 'Luxurious Roman', serif;
+        font-weight: 700;
+    }
+
+    .dancingScript {
+        font-family: 'Dancing Script', serif;
+        font-weight: 700
+    }
+
+
+    .expand-background {
+        position: relative;
+        z-index: 1;
+    }
+
+    .expand-background::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 100%;
+        transform: translate(-50%, -50%) scaleX(0);
+        transform-origin: center;
+        transition: transform 1s ease;
+        z-index: -1;
+    }
+
+    .expand-background:hover{
+        @apply text-base-100;
+    }
+
+
+    .expand-background:hover::before {
+        @apply bg-base-content;
+        width: 100%;
+        transform: translate(-50%, -50%) scaleX(1);
+    }
+
+}
