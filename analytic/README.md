@@ -33,7 +33,7 @@ Khi tập dữ liệu chênh lệch đáng kể giữa các lớp, mô hình s�
 SMOTE tạo ra các mẫu tổng hợp cho lớp thiểu số, giúp mô hình học tốt hơn.
 
 ## 5. Chia tách dữ liệu
-Tỷ lệ chia: 80% huấn luyện - 20% kiểm tra.
+Tỷ lệ chia: 75% huấn luyện - 25% kiểm tra.
 
 ## 6. Xây dựng các mô hình phân loại
 
