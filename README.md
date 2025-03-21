@@ -31,17 +31,33 @@ Dự án này sử dụng các mô hình học máy để dự đoán liệu m�
 ### 1, backend
 Cài đặt thông qua docker-compose.yml
 ```bash
+networks:
+  app_lp:
+    driver: bridge
 
 services:
-  loanpredict:
-    image: azenkain/loanpredict:latest
-    container_name: loanpredict_app
+  backend:
+    image: azenkain/apilp:latest
+    container_name: apilp_app
     ports:
-      - "3346:8000"
+      - "8000:8000"
     volumes:
       - ./data:/app/data
     environment:
       - PYTHONUNBUFFERED=1
+    networks:
+      - app_lp
+    restart: unless-stopped
+
+  frontend:
+    image: azenkain/felp:latest
+    container_name: felp_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app_lp
     restart: unless-stopped
 
 ```

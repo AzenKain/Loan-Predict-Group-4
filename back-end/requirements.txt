@@ -1,7 +1,7 @@
+xgboost==3.0.0
 fastapi
 uvicorn
 pydantic
 joblib
 scikit-learn
 pandas
-xgboost

@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { env } from "@/env"
 
 export default function InputForm() {
   const [age, setAge] = useState<number>(29);
@@ -45,12 +46,12 @@ export default function InputForm() {
       alert(errorMessage);
       return;
     }
-
+  
     const modal = document.getElementById("my_modal_3") as HTMLDialogElement | null;
     if (modal) {
       modal.showModal();
     }
-
+  
     const data = {
       Age: age,
       Income: income,
@@ -69,17 +70,19 @@ export default function InputForm() {
       LoanPurpose: loanPurpose,
       HasCoSigner: hasCoSigner,
     };
-
+  
     try {
       setIsLoading(true);
+      const apiUrl = env.NEXT_PUBLIC_PUBLISHABLE_KEY || "https://apilp.kain.id.vn";
+      console.log(apiUrl)
       const response = await axios.post(
-        `https://apilp.kain.id.vn/predict`,
+        `${apiUrl}/predict`,
         { ...data },
         {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       setIsLoading(false);
       if (!response.data) {
@@ -95,6 +98,7 @@ export default function InputForm() {
       throw error;
     }
   };
+  
 
   return (
     <div>
@@ -342,9 +346,9 @@ export default function InputForm() {
                 <div className="mb-4">
                   <div className="mb-2">
                     <h3 className="text-lg font-bold">Dự đoán từ Random forest</h3>
-                    {data?.decision_tree_prediction?.[0] === 0 ? (
+                    {data?.random_forest_prediction?.[0] === 0 ? (
                       <span className="text-red-600 font-semibold">Người vay có thể không trả được nợ!</span>
-                    ) : data?.decision_tree_prediction?.[0] === 1 ? (
+                    ) : data?.random_forest_prediction?.[0] === 1 ? (
                       <span className="text-green-600 font-semibold">Người vay có thể trả được nợ!</span>
                     ) : (
                       <span className="text-gray-600 font-semibold">Dữ liệu không khả dụng</span>

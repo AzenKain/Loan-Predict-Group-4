@@ -1,0 +1,28 @@
+networks:
+  app_lp:
+    driver: bridge
+
+services:
+  backend:
+    image: azenkain/apilp:latest
+    container_name: apilp_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app_lp
+    restart: unless-stopped
+
+  frontend:
+    image: azenkain/felp:latest
+    container_name: felp_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app_lp
+    restart: unless-stopped
